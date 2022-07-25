@@ -10,7 +10,7 @@ import math
 
 
 def main():
-    width = 9
+    width = 3
     total_squares = width ** 2
     
     checker = Image.open('./sample/checker.jpeg')
@@ -27,6 +27,7 @@ def main():
     # partal(black)
     avg_color = average_pix(checker,[0,0,1,1])
 
+    print(avg_color)
 
     # print(avg_color)
     # paint_box(checker,avg_color,[0,0,50,checker.width])
@@ -44,25 +45,32 @@ def paint_boxes(im,num):
     
     # Using cur_box to keep track of box being filled
     # Assume we start at top right and work right then down
-    cur_x = 0
+    cur_x = 1
     cur_y = 0
 
     i = 255
     j = 0
     
     box_width, box_height = get_box_size(im,row_num)
+    
 
     for row in range(row_num):
         for col in range(col_num):
             box = [cur_x,cur_y, cur_x + box_width, cur_y + box_height]
-            paint_box(im,[i,j,0],box)
-            if i == 255:
-                i = 0
-                j = 255
-            else:
-                i = 255
-                j = 0
-            print(f'row:{row} col:{col}\nx:{cur_x},y:{cur_y}\n')
+            while box[2] >= im.width:
+                box[2] -= 1
+            print(box)
+            print(im.width)
+            cur_avg = average_pix(im,box)
+            paint_box(im,cur_avg,box)
+            # [i,j,0]
+            # if i == 255:
+            #     i = 0
+            #     j = 255
+            # else:
+            #     i = 255
+            #     j = 0
+            print(f'row:{row} col:{col}\nx:{cur_x},y:{cur_y}\navg: {cur_avg}\n')
             cur_x += box_width
         cur_y += box_height
         cur_x = 0
@@ -118,7 +126,7 @@ def average_pix(im, box):
     # width = im.width
     # height = im.height
 
-    start_x, start_y, height, width = box
+    start_x, start_y, width, height = box
     total_pix = width * height
 
     # gathering color totals
