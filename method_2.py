@@ -11,7 +11,7 @@ import math
 class Pixlr:
     
     # think i can remove width
-    def __init__(self, target,width):
+    def __init__(self, target):
 
         # image attributes
         self.im = Image.open(target)
@@ -26,7 +26,7 @@ class Pixlr:
         n += 1
 
         
-    def get_box_size(self,box_num):
+    def get_box_length(self,box_num):
         box_width = self.im.width // box_num
         box_height = self.im.height // box_num
         return [box_width, box_height]
@@ -72,31 +72,40 @@ class Pixlr:
 
         return(avg_rt)
 
-    def iteration(self, x, y, box_size):
-        for x_axis in range(0, self.im.height, box_size):
-            for y_axis in range(0, self.im.width, box_size):
-                box = [x,y, x + box_size, y + box_size]
+    def single_iteration(self, x, y, box_length):
+        for x_axis in range(0, self.im.height, box_length):
+            for y_axis in range(0, self.im.width, box_length):
+                box = [x,y, x + box_length, y + box_length]
                 while box[2] > self.im.width:
                     box[2] -= 1
                 while box[3] > self.im.height:
                     box[3] -= 1
                 avg = self.average_pix(box)
-                print(box)
-                print(avg)
-                print("-----------------")
+                # print(box)
+                # print(avg)
+                # print("-----------------")
                 self.paint_box(avg,box)
                 # print(f'x: {x}, y: {y}, {avg}')
                 # print(f'x: {x}, y: {y}\n')
                 # print(box)
-                y += box_size
+                y += box_length
         
-            x += box_size
+            x += box_length
             y = 0
 
+    def multi_iteration(self,num):
+        for iter_count in range(1,num):
+            iter_count *= 2
+            self.single_iteration(0,0,iter_count)
+            if iter_count % 1== 0:
+                self.im.show()
+                input()
+
 def main():
-    im = Pixlr('./sample/checker.jpeg',2)
-    im.iteration(0,0,450)
-    im.show()
+    im = Pixlr('./sample/circle.jpeg')
+    # im.single_iteration(0,0,4)
+    im.multi_iteration(5)
+    # im.show()
     
 
 if __name__ == '__main__':
