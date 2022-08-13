@@ -68,11 +68,13 @@ class Pixlr:
         
         # calculating average
         avg_squared = [red**2, green**2, blue**2]
+        # print(f'{box} {total_pix}')
         avg_rt =list(map(lambda x: int(math.sqrt(x)//total_pix), avg_squared))
 
         return(avg_rt)
 
     def single_iteration(self, x, y, box_length):
+        print(box_length)
         for x_axis in range(0, self.im.height, box_length):
             for y_axis in range(0, self.im.width, box_length):
                 box = [x,y, x + box_length, y + box_length]
@@ -94,18 +96,21 @@ class Pixlr:
             y = 0
 
     def multi_iteration(self,num):
-        for iter_count in range(1,num):
-            iter_count *= 2
-            self.single_iteration(0,0,iter_count)
-            if iter_count % 1== 0:
-                self.im.show()
-                input()
+        if num < 1:
+            self.im.show()
+            return
+        box_size = 1
+        for count in range(0,num):
+            box_size *= 2
+            self.single_iteration(0,0,box_size)
+            # print(f'iter: {iter_count}')
 
 def main():
-    im = Pixlr('./sample/circle.jpeg')
+    im = Pixlr('./sample/mario.jpeg')
     # im.single_iteration(0,0,4)
-    im.multi_iteration(5)
-    # im.show()
+    im.multi_iteration(2)
+    im.show()
+    print('done')
     
 
 if __name__ == '__main__':
