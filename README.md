@@ -9,23 +9,19 @@
 
 
 **Results:** Does not produce intended results. Even for squares that consist of a single color, it is inaccurate.
-## Solution 2
+## Solution 2 (Mipmapping)
 **Concept:** Start at smallest pixel and take average of it alongside any adjacent pixels. 
 
-## Solution 3
-**Concept 3:** Looking into image downsampling
+**Results:** Much better than Solution 1. Image is accurately pixelated. However, coloring can appear odd after an extreme number of iterations
 
-## Assorted notes
-mipmapping
-http://number-none.com/product/Mipmapping,%20Part%201/index.html
+**Sources:** http://number-none.com/product/Mipmapping,%20Part%201/index.html
 
-
-
-# Next time
-investigate coordinates in iterate
-Check with a single corner in paint box ie (0,0,100,100) to see if coordinates are being input in the correct order
-Then verify using non-avgs as colors
-
+# TODO
+## Soon
+- Add ability to process rectangular images
+## Eventually
+- Add UI
+- Find way to better average color matching(best match against pallete?)
 
 
 
