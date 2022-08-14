@@ -17,10 +17,8 @@
 **Sources:** http://number-none.com/product/Mipmapping,%20Part%201/index.html
 
 # TODO
-## Soon
-- Add ability to process rectangular images
 ## Eventually
-- Add UI
+- Add GUI
 - Find way to better average color matching(best match against pallete?)
 
 
