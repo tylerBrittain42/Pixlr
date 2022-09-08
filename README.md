@@ -16,14 +16,6 @@
 
 **Sources:** http://number-none.com/product/Mipmapping,%20Part%201/index.html
 
-# TODO
-## Eventually
-- Add GUI
-- Find way to better average color matching(best match against pallete?)
-
-
-
-
 
 
 
